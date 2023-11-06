@@ -33,12 +33,12 @@ input:
     - '**'
 
     # Include deployments.
-    - '!bicep/deployments/**/*.bicepparam'
-    - '!bicep/deployments/**/deploy.bicep'
-    - '!template/**/*.parameters.json'
+    - '!infra/**/*.bicepparam'
+    - '!infra/**/deploy.bicep'
+    - '!infra/**/*.parameters.json'
 
     # Include module tests.
-    - '!bicep/modules/**/*.tests.bicep'
+    - '!infra/modules/**/*.tests.bicep'
 
 configuration:
   # Enable automatic expansion of Azure parameter files.
@@ -58,8 +58,8 @@ configuration:
   AZURE_BICEP_MINIMUM_VERSION: '0.19.5'
 
 # Suppression ignores rules for a specific Azure resource by name.
-suppression:
-  Azure.KeyVault.Logs:
-    - kvtest001
-  Azure.Storage.BlobPublicAccess:
-    - sttest001
+#suppression:
+#  Azure.KeyVault.Logs:
+#    - kvtest001
+#  Azure.Storage.BlobPublicAccess:
+#    - sttest001
