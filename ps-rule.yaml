@@ -10,6 +10,11 @@ binding:
     - ResourceType
     - type
 
+input:
+  pathIgnore:
+  # Exclude all files
+  - 'infra/**'
+
 rule:
   include:
     - Azure.Policy.*
