@@ -15,6 +15,8 @@ param location string = resourceGroup().location
 @description('The resource identifier for a Log Analytics workspace.')
 param workspaceId string
 
+@secure()
+param adminPassword string = 'P@ssw0rd1234!'
 
 // An example Storage Account
 module storage 'modules/storage/v1/main.bicep' = {
