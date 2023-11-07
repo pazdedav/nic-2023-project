@@ -17,6 +17,7 @@ permissions:
 env:
   AZURE_RESOURCEGROUP_NAME: ToyWebsiteTest
   ENVIRONMENT_TYPE: Test
+  AZURE_STORAGE_ACCOUNT_NAME: dp8483strg
 
 jobs:
   lint:
@@ -133,8 +134,29 @@ jobs:
         deploymentName: ${{ github.run_number }}
         resourceGroupName: ${{ env.AZURE_RESOURCEGROUP_NAME }}
         template: ./deploy/main.bicep
-        parameters: environmentType=${{ env.ENVIRONMENT_TYPE }}
+        parameters: ./deploy/main.bicepparam environmentType=${{ env.ENVIRONMENT_TYPE }} #storageAccountNameParam=${{ env.AZURE_STORAGE_ACCOUNT_NAME }}
         scope: ResourceGroup
+
+  benchpress:
+    runs-on: ubuntu-latest
+    name: Validate infrastructure with BenchPress
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout Repo
+        id: checkout
+        with:
+          fetch-depth: 0
+
+      - name: BenchPress tests
+        id: benchpress
+        uses: azure/powershell@v1
+        with:
+          inlineScript: |
+            ./.github/workflows/Run-BenchPressTest.ps1 -StorageAccountName ${{ env.AZURE_STORAGE_ACCOUNT_NAME}} -Location ${{ env.LOCATION }} -ResourceGroupName ${{ env.AZURE_RESOURCEGROUP_NAME }}
+          azPSVersion: "latest"
+        env:
+          AZ_ENCRYPTED_PASSWORD: ${{ secrets.AZ_ENCRYPTED_PASSWORD }}
+          LOCATION: 'norwayeast'
 
   smoke-test:
     runs-on: ubuntu-latest
