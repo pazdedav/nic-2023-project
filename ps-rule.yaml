@@ -14,6 +14,10 @@ input:
   pathIgnore:
   # Exclude all files
   - 'infra/**'
+  - '.ps-rule/**'
+  - '.git/**'
+  - '**'
+  - '!.tests/*.tests.bicep'
 
 rule:
   include:
