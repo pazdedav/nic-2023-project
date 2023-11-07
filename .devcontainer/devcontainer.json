@@ -1,0 +1,72 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+    "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
+    "name": "PSRule Demo on Ubuntu Container",
+    // Features to add to the dev container. More info: https://containers.dev/features.
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {
+            "ppa": true,
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/github-cli:1": {
+            "installDirectlyFromGitHubRelease": true,
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/powershell:1": {
+            "version": "latest",
+            "modules": "Az,PSRule.Rules.Azure"
+        },
+        "ghcr.io/devcontainers/features/azure-cli:1": {
+            "installBicep": true,
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/dotnet:1": {
+            "runtimeOnly": true,
+            "version": "6"
+        },
+        "ghcr.io/devcontainers-contrib/features/snyk-cli:1": {
+            "version": "latest"
+        }
+    },
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    // "forwardPorts": [],
+    // Use 'postCreateCommand' to run commands after the container is created.
+    // "postCreateCommand": "uname -a",
+    // Configure tool-specific properties.
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.powershell",
+                "bewhite.psrule-vscode-preview",
+                "msazurermtools.azurerm-vscode-tools",
+                "ms-azuretools.vscode-bicep",
+                "github.vscode-github-actions",
+                "pspester.pester-test",
+                "ms-azuretools.vscode-azureresourcegroups",
+                "editorconfig.editorconfig",
+                "bewhite.psrule-vscode"
+            ],
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "pwsh",
+                "terminal.integrated.profiles.linux": {
+                    "pwsh": {
+                        "path": "/opt/microsoft/powershell/7/pwsh"
+                    }
+                },
+                "PSRule.notifications.showPowerShellExtension": false,
+                "PSRule.notifications.showChannelUpgrade": false
+            }
+        }
+    },
+    "onCreateCommand": "/opt/microsoft/powershell/7/pwsh -f .devcontainer/container-build.ps1",
+    "postStartCommand": "/opt/microsoft/powershell/7/pwsh -f .devcontainer/container-start.ps1",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "args": {
+            "VARIANT": "6.0-bullseye-slim"
+        }
+    },
+    // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+    "remoteUser": "vscode"
+}
