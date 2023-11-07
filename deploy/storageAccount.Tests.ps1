@@ -9,33 +9,33 @@
     Invoke-Pester -Output Detailed deploy/storageAccount.Tests.ps1
 #>
 
-[CmdletBinding()]
-param (
-    [Parameter(Mandatory)]
-    [string]
-    $StorageAccountName,
-
-    [Parameter(Mandatory)]
-    [string]
-    $Location,
-
-    [Parameter(Mandatory)]
-    [string]
-    $ResourceGroupName
-)
-
-BeforeAll {
+<# BeforeAll {
     Import-Module BenchPress.Azure -Force
 
-    $Script:noStgName = 'noteststg'
+    [string]$Script:noStgName = 'noteststg'
+    [string]$Script:StorageAccountName = 'dp8483strg'
+    [string]$Script:Location = 'westeurope'
+    [string]$Script:ResourceGroupName = 'ToyWebsiteTest'
 
-}
+} #>
 
 Describe 'Verify Storage Account Exists' {
+
+    BeforeAll {
+        Import-Module BenchPress.Azure -Force
+
+        [string]$Script:noStgName = 'noteststg'
+        [string]$Script:StorageAccountName = 'dp8483strg'
+        [string]$Script:Location = 'westeurope'
+        [string]$Script:ResourceGroupName = 'ToyWebsiteTest'
+
+    }
+
     It "Should contain a Storage Account named $StorageAccountName - Confirm-AzBPResource" {
+
         # arrange
         $params = @{
-            ResourceType = "storageAccounts"
+            ResourceType = "storageAccount"
             ResourceName = $StorageAccountName
         }
 
@@ -45,9 +45,10 @@ Describe 'Verify Storage Account Exists' {
 
 
     It "Should contain a Storage Account named $StorageAccountName - Confirm-AzBPResource" {
+
         # arrange
         $params = @{
-            ResourceType  = "storageAccounts"
+            ResourceType  = "storageAccount"
             ResourceName  = $StorageAccountName
             PropertyKey   = 'Location'
             PropertyValue = $Location

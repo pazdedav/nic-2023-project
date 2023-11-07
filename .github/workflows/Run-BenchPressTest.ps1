@@ -12,7 +12,7 @@
     Explanation of the function or its result. You can include multiple examples with additional .EXAMPLE lines
 #>
 
-[CmdletBinding()]
+<# [CmdletBinding()]
 param (
     [Parameter(Mandatory)]
     [string]
@@ -25,7 +25,7 @@ param (
     [Parameter(Mandatory)]
     [string]
     $ResourceGroupName
-)
+) #>
 
 
 Set-PSRepository psgallery -InstallationPolicy trusted
@@ -39,7 +39,7 @@ $configuration.Output.Verbosity = 'Detailed'
 $configuration.TestResult.OutputFormat = 'NUnitXml'
 $configuration.TestResult.OutputPath = 'Test.xml'
 $configuration.Output.CIFormat = 'GithubActions'
-$container = New-PesterContainer -Path "./deploy/storageAccount.Tests.ps1" -Data @{ StorageAccountName = $StorageAccountName; ResourceGroupName = $ResourceGroupName; Location = $Location }
+$container = New-PesterContainer -Path "./deploy/storageAccount.Tests.ps1" #-Data @{ StorageAccountName = $StorageAccountName; ResourceGroupName = $ResourceGroupName; Location = $Location }
 $configuration.Run.Container = $container
 $configuration.Run.PassThru = $true
 $result = Invoke-Pester -Configuration $configuration
