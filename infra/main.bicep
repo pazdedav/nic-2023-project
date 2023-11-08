@@ -12,4 +12,5 @@ resource stg 'Microsoft.Storage/storageAccounts@2021-02-01' = {
   name: 'store${toLower(time)}'
 }
 
+#disable-next-line outputs-should-not-contain-secrets
 output badResult string = 'this is the value ${secureParam}'
