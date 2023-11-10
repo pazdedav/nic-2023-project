@@ -1,0 +1,12 @@
+{
+    "recommendations": [
+        "ms-vscode.powershell",
+        "bewhite.psrule-vscode",
+        "msazurermtools.azurerm-vscode-tools",
+        "ms-azuretools.vscode-bicep",
+        "pspester.pester-test",
+        "bewhite.psrule-vscode",
+        "snyk-security.snyk-vulnerability-scanner",
+        "checkmarx.ast-results"
+    ]
+}
